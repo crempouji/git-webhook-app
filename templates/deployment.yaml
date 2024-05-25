@@ -1,0 +1,24 @@
+
+{{- with .Values.deployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-{{ $.Chart.Name }}-deploy
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+        {{ toYaml .podLabels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ toYaml .podLabels | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .containerName }}
+        image: {{ .image.repository }}:{{ .image.tag }}
+        resources:
+          {{ toYaml .resources | nindent 10 }}
+        ports:
+        - containerPort: {{ .containerPort }}
+{{- end -}}

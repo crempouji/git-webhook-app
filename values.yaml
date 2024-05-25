@@ -1,0 +1,19 @@
+# Deployment Yaml Variables
+
+deployment:
+  replicaCount: 3
+  podLabels:
+    ola: myapp
+    comovai: myapp1
+  containerName: "argocd-reconciliation-container"
+  image:
+    repository: "nginx"
+    tag: "alpine"
+  resources:
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+    requests:
+      memory: "70Mi"
+      cpu: "200m"
+  containerPort: 80
