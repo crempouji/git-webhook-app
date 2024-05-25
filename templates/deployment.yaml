@@ -20,5 +20,5 @@ spec:
           {{ toYaml .resources | nindent 10 }}
         ports:
         - containerPort: {{ .containerPort }}
-{{- end -}}
 ---
+{{- end -}}
