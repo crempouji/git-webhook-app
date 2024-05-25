@@ -4,6 +4,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+podAnnotations: {}
+
 deployment:
   replicaCount: 10
   podLabels:
