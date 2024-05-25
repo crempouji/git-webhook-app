@@ -1,7 +1,7 @@
 # Deployment Yaml Variables
 
 deployment:
-  replicaCount: 5
+  replicaCount: 10
   podLabels:
     ola: myapp
     comovai: myapp1
