@@ -1,24 +1,26 @@
-{{- with .Values.deployment }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-{{ $.Chart.Name }}-deploy
+  name: {{ .Release.Name }}-deploy
 spec:
-  replicas: {{ .replicaCount }}
+  replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-        {{ toYaml .podLabels | nindent 6 }}
+        {{- include "git-webhook-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        {{ toYaml .podLabels | nindent 8 }}
+        {{- include "git-webhook-app.selectorLabels" . | nindent 6 }}
     spec:
       containers:
-      - name: {{ .containerName }}
-        image: {{ .image.repository }}:{{ .image.tag }}
+      - name: {{ .Values.deployment.containerName }}
+        image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
         resources:
-          {{ toYaml .resources | nindent 10 }}
+          {{ toYaml .Values.deployment.resources | nindent 10 }}
         ports:
-        - containerPort: {{ .containerPort }}
+        - containerPort: {{ .Values.deployment.containerPort }}
 ---
-{{- end -}}

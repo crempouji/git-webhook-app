@@ -1,5 +1,9 @@
 # Deployment Yaml Variables
 
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
 deployment:
   replicaCount: 10
   podLabels:
