@@ -23,3 +23,12 @@ deployment:
       memory: "70Mi"
       cpu: "200m"
   containerPort: 80
+
+rollouts:
+  enabled: true
+  name: rollout-ref-deployment
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 10s}

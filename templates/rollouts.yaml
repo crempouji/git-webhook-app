@@ -1,0 +1,19 @@
+{{ if .Values.rollouts.enabled }}
+{{- with .Values.rollouts }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .name }}
+spec:
+  replicas: {{ $.Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "git-webhook-app.selectorLabels" $ | nindent 6 }}
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $.Release.Name }}-deploy
+  strategy:
+    {{ .strategy | toYaml | nindent 4 }}
+{{- end -}}
+{{ end }}
