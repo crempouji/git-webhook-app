@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-service
+  labels:
+    {{- include "git-webhook-app.selectorLabels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.deployment.containerPort }}
+    targetPort: {{ .Values.deployment.containerPort }}
+    protocol: TCP
+    name: {{ .Values.service.name }}
+  selector:
+    {{- include "git-webhook-app.selectorLabels" . | nindent 4 }} 
