@@ -7,7 +7,7 @@ spec:
   replicas: 0
   {{ else }}
   replicas: {{ $.Values.deployment.replicaCount }}
-  {{ - end - }}
+  {{ end }}
   selector:
     matchLabels:
         {{- include "git-webhook-app.selectorLabels" . | nindent 6 }}
