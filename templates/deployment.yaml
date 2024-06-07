@@ -3,7 +3,11 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-deploy
 spec:
-  replicas: {{ .Values.deployment.replicaCount }}
+  {{ if .Values.rollouts.enabled }}
+  replicas: 0
+  {{ else }}
+  replicas: {{ $.Values.deployment.replicaCount }}
+  {{ - end - }}
   selector:
     matchLabels:
         {{- include "git-webhook-app.selectorLabels" . | nindent 6 }}
