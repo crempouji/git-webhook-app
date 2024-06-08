@@ -10,6 +10,6 @@ spec:
   http:
   - route:
     - destination:
-        host: {{ .Values.service.name }}.{{ .Release.Namespace }}.svc.cluster.local
+        host: {{ .Release.Name }}-service.{{ .Release.Namespace }}.svc.cluster.local
         port:
           number: {{ .Values.deployment.containerPort }}
