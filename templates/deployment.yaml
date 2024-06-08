@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-deploy
+  labels:
+    {{ include "git-webhook-app.labels" . | nindent 4 }}
 spec:
   {{ if .Values.rollouts.enabled }}
   replicas: 0
@@ -20,6 +22,7 @@ spec:
       labels:
         {{- include "git-webhook-app.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ .Release.Name }}-sa
       containers:
       - name: {{ .Values.deployment.containerName }}
         image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
@@ -27,4 +30,3 @@ spec:
           {{ toYaml .Values.deployment.resources | nindent 10 }}
         ports:
         - containerPort: {{ .Values.deployment.containerPort }}
----

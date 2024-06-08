@@ -4,6 +4,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: {{ .name }}
+  labels:
+  {{ include "git-webhook-app.labels" $ | nindent 4 }}
 spec:
   replicas: {{ $.Values.deployment.replicaCount }}
   selector:
@@ -16,4 +18,4 @@ spec:
   strategy:
     {{ .strategy | toYaml | nindent 4 }}
 {{- end -}}
-{{ end }}
+{{- end -}}
