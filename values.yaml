@@ -42,3 +42,11 @@ rollouts:
 service:
   type: NodePort
   name: crempouji-service
+
+analysisTemplate:
+  enabled: true
+
+istio:
+  enabled: true
+  gateway:
+    host: "*"

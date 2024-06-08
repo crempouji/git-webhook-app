@@ -1,0 +1,20 @@
+{{ if .Values.analysisTemplate.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: {{ .Release.Name }}-analysis-template
+spec:
+  metrics:
+  - name: success-rate
+    successCondition: result[0] >= 0.95
+    provider:
+      prometheus:
+        address: prometheus.istio-system.svc.cluster.local
+        query: |
+          sum(irate(
+            istio_requests_total{reporter="source",destination_service=~"{{ .Values.service.name }}",response_code!~"5.*"}[5m]
+          )) /
+          sum(irate(
+            istio_requests_total{reporter="source",destination_service=~"{{ .Values.service.name }}"}[5m]
+          ))
+{{- end -}}
