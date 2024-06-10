@@ -14,7 +14,7 @@ spec:
   workloadRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ $.Release.Name }}-deploy
+    name: {{ include "git-webhook-app.fullname" $ }}-deploy
   strategy:
     {{ .strategy | toYaml | nindent 4 }}
 {{- end -}}
