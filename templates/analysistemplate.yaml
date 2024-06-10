@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: {{ .Release.Name }}-analysis-template
+  name: {{ include "git-webhook-app.fullname" . }}-analysis-template
 spec:
   metrics:
   {{- with .Values.analysisTemplate.metrics }}

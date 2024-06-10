@@ -3,7 +3,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ .name }}
+  name: {{ include "git-webhook-app.fullname" $ }}-rollout
   labels:
   {{ include "git-webhook-app.labels" $ | nindent 4 }}
 spec:

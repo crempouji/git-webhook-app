@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deploy
+  name: {{ include "git-webhook-app.fullname" . }}-deploy
   labels:
     {{ include "git-webhook-app.labels" . | nindent 4 }}
 spec:
@@ -22,7 +22,7 @@ spec:
       labels:
         {{- include "git-webhook-app.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ .Release.Name }}-sa
+      serviceAccountName: {{ include "git-webhook-app.fullname" $ }}-sa
       containers:
       - name: {{ .Values.deployment.containerName }}
         image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}

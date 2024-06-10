@@ -1,15 +1,15 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: {{ .Release.Name }}-vs
+  name: {{ include "git-webhook-app.fullname" . }}-vs
 spec:
   hosts:
   - "*"
   gateways:
-  - {{ .Release.Name }}-gateway
+  - {{ include "git-webhook-app.fullname" . }}-gateway
   http:
   - route:
     - destination:
-        host: {{ .Release.Name }}-service.{{ .Release.Namespace }}.svc.cluster.local
+        host: {{ include "git-webhook-app.fullname" . }}-service.{{ .Release.Namespace }}.svc.cluster.local
         port:
           number: {{ .Values.deployment.containerPort }}

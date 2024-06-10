@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-service
+  name: {{ include "git-webhook-app.fullname" . }}-service
   labels:
     {{- include "git-webhook-app.selectorLabels" . | nindent 4 }}
 spec:
