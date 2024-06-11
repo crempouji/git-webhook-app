@@ -19,11 +19,11 @@ spec:
     {{ .strategy | toYaml | nindent 4 }}
       trafficRouting:
         istio:
-            virtualService:
+          virtualService:
             name: {{ include "git-webhook-app.fullname" $ }}-vs
             routes:
             - primary
-            destinationRule:
+          destinationRule:
             name: {{ include "git-webhook-app.fullname" $ }}-dr
             canarySubsetName: canary
             stableSubsetName: stable
