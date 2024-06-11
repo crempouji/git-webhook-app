@@ -8,8 +8,13 @@ spec:
   gateways:
   - {{ include "git-webhook-app.fullname" . }}-gateway
   http:
-  - route:
+  - name: primary
+    route:
     - destination:
         host: {{ include "git-webhook-app.fullname" . }}-service.{{ .Release.Namespace }}.svc.cluster.local
-        port:
-          number: {{ .Values.deployment.containerPort }}
+        subset: stable
+      weight: 100
+    - destination:
+        host: {{ include "git-webhook-app.fullname" . }}-service.{{ .Release.Namespace }}.svc.cluster.local
+        subset: canary
+      weight: 0

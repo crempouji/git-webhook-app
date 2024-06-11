@@ -17,5 +17,15 @@ spec:
     name: {{ include "git-webhook-app.fullname" $ }}-deploy
   strategy:
     {{ .strategy | toYaml | nindent 4 }}
+    trafficRouting:
+      istio:
+        virtualService:
+          name: {{ include "git-webhook-app.fullname" $ }}-vs
+          routes:
+          - primary
+        destinationRule:
+          name: {{ include "git-webhook-app.fullname" $ }}-dr
+          canarySubsetName: canary
+          stableSubsetName: stable
 {{- end -}}
 {{- end -}}

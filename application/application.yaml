@@ -10,14 +10,14 @@ spec:
     targetRevision: HEAD
     path: .
     helm:
-      # parameters:
-      # - name: fullnameOverride
-      #   value: gabriel-webhook-teste
+      parameters:
+      - name: fullnameOverride
+        value: gabriel-webhook-teste
       valueFiles:
         - values.yaml
       values: |-
         deployment:
-          replicaCount: 1
+          replicaCount: 2
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: nginx-test

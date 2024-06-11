@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ include "git-webhook-app.fullname" $ }}-dr
+spec:
+  host: {{ include "git-webhook-app.fullname" . }}-service
+  subsets:
+  - name: canary
+    labels:
+      {{- .Values.podAnnotations | toYaml | nindent 6}}
+  - name: stable
+    labels:
+      {{- .Values.podAnnotations | toYaml | nindent 6}}
