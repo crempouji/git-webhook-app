@@ -38,17 +38,6 @@ rollouts:
         - pause: {duration: 10s}
         - setWeight: 80
         - pause: {duration: 10s}
-      trafficRouting:
-        enabled: true
-        istio:
-          virtualService:
-            name: rollout-vsvc        # required
-            routes:
-            - primary                 # optional if there is a single route in VirtualService, required otherwise
-          destinationRule:
-            name: rollout-destrule    # required
-            canarySubsetName: canary  # required
-            stableSubsetName: stable  # required
 
 service:
   type: NodePort
