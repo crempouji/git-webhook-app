@@ -4,6 +4,9 @@ kind: AnalysisTemplate
 metadata:
   name: {{ include "git-webhook-app.fullname" . }}-analysis-template
 spec:
+  args:
+  - name: service-name
+    value: {{ .Values.service.name }}
   metrics:
   {{- with .Values.analysisTemplate.metrics }}
   - name: {{ .name }}
@@ -12,8 +15,11 @@ spec:
       prometheus:
         address: {{ .provider.prometheus.address }}
         query: |
-        {{- with .provider.prometheus.query }}
-        {{ toYaml . | nindent 10 }}
-        {{- end -}}
+           sum(irate(
+            istio_requests_total{reporter="source",destination_service=~"{{args.service-name}}",response_code!~"5.*"}[5m]
+          )) /
+          sum(irate(
+            istio_requests_total{reporter="source",destination_service=~"{{args.service-name}}"}[5m]
+          ))
   {{- end -}}
 {{- end -}}
