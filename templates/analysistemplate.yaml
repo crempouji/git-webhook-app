@@ -10,7 +10,7 @@ spec:
     successCondition: {{ .successCondition }}
     provider:
       prometheus:
-        address: {{ .provider.prometheus.address }}
+        address: http://{{ .provider.prometheus.address }}:9090
         query: {{ .provider.prometheus.query | toYaml | nindent 10 }}
   {{- end -}}
 {{- end -}}
