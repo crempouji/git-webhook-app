@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: {{ .Values.namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-5"
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
   labels:
     istio-injection: enabled
