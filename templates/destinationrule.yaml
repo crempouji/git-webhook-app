@@ -7,7 +7,7 @@ spec:
   subsets:
   - name: canary
     labels:
-      {{- .Values.podAnnotations | toYaml | nindent 6}}
+      {{- include "git-webhook-app.selectorLabels" . | nindent 6 }}
   - name: stable
     labels:
-      {{- .Values.podAnnotations | toYaml | nindent 6}}
+      {{- include "git-webhook-app.selectorLabels" . | nindent 6 }}
