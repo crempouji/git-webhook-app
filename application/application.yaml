@@ -18,6 +18,18 @@ spec:
       values: |-
         deployment:
           replicaCount: 2
+        analysisTemplate:
+          metrics:
+            provider:
+              prometheus:
+                query: |
+                  sum(irate(
+                    istio_requests_total{reporter="source",destination_service=~"gabriel-webhook-teste-service",response_code!~"5.*"}[5m]
+                  )) /
+                  sum(irate(
+                    istio_requests_total{reporter="source",destination_service=~"gabriel-webhook-teste-service"}[5m]
+                  ))
+        
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: nginx-test
