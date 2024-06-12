@@ -37,6 +37,9 @@ service:
   type: NodePort
   name: crempouji-service
 
+namespace:
+  name: nginx-teste
+
 analysisTemplate:
   enabled: true
   metrics:
