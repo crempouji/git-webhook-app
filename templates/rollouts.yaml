@@ -27,7 +27,7 @@ spec:
         - pause: {duration: 20s}
         - analysis:
             templates:
-            - templateName: {{ include "git-webhook-app.fullname" $ }}-analysis-templatez
+            - templateName: {{ include "git-webhook-app.fullname" $ }}-analysis-template
         - setWeight: 60
         - pause: {duration: 30s}
         - analysis:
