@@ -40,6 +40,12 @@ service:
 namespace:
   name: nginx-teste
 
+hpa:
+  enabled: true
+  maxReplicas: 6
+  minReplicas: 2
+  targetCPUUtilizationPercentage: 80
+
 analysisTemplate:
   enabled: true
   metrics:

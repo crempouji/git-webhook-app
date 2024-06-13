@@ -7,7 +7,11 @@ metadata:
   labels:
   {{ include "git-webhook-app.labels" $ | nindent 4 }}
 spec:
+  {{ if $.Values.hpa.enabled }}
+  replicas: {{ $.Values.hpa.minReplicas }}
+  {{ else }}
   replicas: {{ $.Values.deployment.replicaCount }}
+  {{ end }}
   selector:
     matchLabels:
       {{- include "git-webhook-app.selectorLabels" $ | nindent 6 }}
